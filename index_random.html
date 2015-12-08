@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"/></script>
+<title>带有分散效果的瀑布流</title>
+<style type="text/css">
+    *{padding: 0;margin:0;}
+    #main{
+        position: relative;
+    }
+    .pin{
+        padding: 15px 0 0 15px;
+        float:left;
+    }
+    .box{
+        padding: 10px;
+        border:1px solid #ccc;
+        box-shadow: 0 0 6px #ccc;
+        border-radius: 5px;
+    }
+    .box img{
+        width:162px;
+        height:auto;
+    }
+</style>
+<script>
+$( window ).on( "load", function(){
+   // 调用waterfall函数
+    waterfall();
+    var dataInt={'data':[{'src':'images/1.jpg'},{'src':'images/2.jpg'},{'src':'images/3.jpg'},{'src':'images/4.jpg'}]};
+    window.onscroll=function(){
+       // 拖动滚动条时
+       var flag=checkscrollside();
+     }
+});
+function pic_init()
+{
+    var oMain=$('#main');
+    var oPins=$('.pin');
+    var ran1,ran2;
+    var mWidth=Math.floor($(window).width()/2);
+    var mHeight=Math.floor($(window).height()/2);
+    oMain.css('width',6*oPins.eq(0).outerWidth()+'px').css('margin','0 auto');
+    oPins.each(function(index){
+        ran1=mWidth+100-Math.floor(Math.random()*201);
+        ran2=mHeight+100-Math.floor(Math.random()*201);
+        $(this).css({'position':'absolute','left':ran1+'px','top':ran2+'px'});
+    });
+}
+
+function waterfall(){
+ // 计算及定位数据块显示分散效果
+    pic_init();
+    var hArr=new Array();
+    var i=0;
+    my_animate(hArr,i);
+}
+
+function my_animate(hArr,i){
+    //console.log(i);
+    if(i>21)
+        return false;
+    var ele=$('.pin').eq(i);
+    var mTop,mLeft,mNum,mIndex;
+    if(i<6){
+        mTop=0;
+        mLeft=i*ele.outerWidth();
+        hArr.push(ele.outerHeight());
+        ele.animate({'top':mTop+'px','left':mLeft+'px'},200,function(){my_animate(hArr,++i)});
+    } else{
+        mNum=Math.min.apply(null,hArr);
+        mIndex=$.inArray(mNum,hArr);
+        mTop=hArr[mIndex];
+        mLeft=mIndex*ele.outerWidth();
+        hArr[mIndex]+=ele.outerHeight();
+        ele.animate({'top':mTop+'px','left':mLeft+'px'},200,function(){my_animate(hArr,++i)});
+    }
+    return false;
+}
+
+
+function checkscrollside(){
+  // 检测是否具备了加载数据块的条件
+   var ele_Height=$('.pin').last().offset().top;
+   var scroll_Height=$(document).scrollTop()+$(window).height();
+   if(scroll_Height>ele_Height){
+        return true;
+   }
+   else
+        return false;
+}
+
+</script>
+</head>
+<body>
+<div id="main">
+    <div class="pin">
+        <div class="box">
+            <img src="./images/1.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/2.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/3.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/4.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/5.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/6.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/7.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/8.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/9.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/10.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/11.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/12.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/13.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/14.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/15.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/16.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/17.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/18.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/19.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/20.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="./images/21.jpg"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
